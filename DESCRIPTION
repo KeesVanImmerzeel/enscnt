@@ -1,0 +1,21 @@
+Package: enscnt
+Title: Export Representative English Sentences For Analysis
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Kees",
+           family = "van Immerzeel",
+           role = c("aut", "cre"),
+           email = "c.h.van.immerzeel@gmail.com",
+           comment = c(ORCID = "https://orcid.org/0000-0003-0926-3248"))
+Description: Export scentences of english text to be used as a source for training 'next word' prediction function.
+    Also exports the function clean_text() to transform text with non-text characters to 'clean' text.
+License: Artistic-2.0
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.0
+Imports: 
+    textclean,
+    magrittr
+Depends: 
+    R (>= 2.10)
