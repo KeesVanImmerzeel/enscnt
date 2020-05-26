@@ -1,6 +1,6 @@
 #' enscnt: package with dataset of English sentences.
 #'
-#' Sentences are from ttwitter, blogs and newspapers.
+#' Sentences are from twitter, blogs and newspapers.
 #'
 #' @section functions:
 #' Additional functions exported:
