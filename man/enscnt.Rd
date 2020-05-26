@@ -5,8 +5,13 @@
 \alias{enscnt}
 \title{enscnt: package with dataset of English sentences.}
 \description{
-Sentences are from ttwitter, blogs and newspapers.
+Sentences are from twitter, blogs and newspapers.
 }
+\section{dataset}{
+
+\code{\link{ensentences}}
+}
+
 \section{functions}{
 
 Additional functions exported:
