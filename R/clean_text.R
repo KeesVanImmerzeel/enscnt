@@ -8,14 +8,17 @@
 #'
 #' @importFrom textclean replace_word_elongation
 #' @importFrom magrittr %>%
+#' @importFrom stringi stri_remove_empty
+#'
 #' @export
 clean_text <- function(x) {
       text <- x %>%
-            replace_word_elongation() %>% # Replace elongation words
+            textclean::replace_word_elongation() %>% # Replace elongation words
             gsub("[^A-Za-z ]", "", .) %>% # Remove all characters that are not letters or space.
             gsub("\\s+", " ", .) %>% # Remove multiple white spaces
             trimws() %>% # Trim trailing and leading white space
-            tolower() # Convert to lowercase
+            tolower() %>%  # Convert to lowercase
+            stri_remove_empty()
       return(text)
 }
 
