@@ -18,7 +18,7 @@ clean_text <- function(x) {
             gsub("\\s+", " ", .) %>% # Remove multiple white spaces
             trimws() %>% # Trim trailing and leading white space
             tolower() %>%  # Convert to lowercase
-            stringi::stri_remove_empty() # Remove empty lines
+            stringi::stri_remove_empty_na() # Remove empty lines
       return(text)
 }
 
