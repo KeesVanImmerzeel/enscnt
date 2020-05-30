@@ -5,7 +5,7 @@
 \alias{ensentences}
 \title{Sample of English sentences.}
 \format{
-An object of class \code{character} of length 834748.
+An object of class \code{character} of length 824119.
 }
 \source{
 \url{https://d396qusza40orc.cloudfront.net/dsscapstone/dataset/Coursera-SwiftKey.zip}

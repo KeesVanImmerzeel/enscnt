@@ -17,6 +17,7 @@ RoxygenNote: 7.1.0
 Imports: 
     textclean,
     magrittr,
-    stringi
+    stringi,
+    stats
 Depends: 
     R (>= 2.10)

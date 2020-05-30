@@ -16,5 +16,10 @@ Sentences are from twitter, blogs and newspapers.
 
 Additional functions exported:
 \code{\link{clean_text}}
+\code{\link{word_count}}
+\code{\link{word_count}}
+\code{\link{word_count}}
+\code{\link{word_count}}
+\code{\link{word_count}}
 }
 

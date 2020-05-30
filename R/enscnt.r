@@ -8,6 +8,11 @@
 #' @section functions:
 #' Additional functions exported:
 #' \code{\link{clean_text}}
+#' \code{\link{word_count}}
+#' \code{\link{word_count}}
+#' \code{\link{word_count}}
+#' \code{\link{word_count}}
+#' \code{\link{word_count}}
 #'
 #' @docType package
 #' @name enscnt
