@@ -30,7 +30,9 @@ clean_text <- function(x) {
 #' @export
 word_count <- function(text) {
       i <- sapply(text, stringi::stri_stats_latex, USE.NAMES = FALSE)
-      return(i["Words", ])
+      res <- i["Words", ]
+      names(res) <- NULL
+      return(res)
 }
 
 #' Create a dataframe of n-grams, and their frequency and proportion.
@@ -78,6 +80,7 @@ sampleNlines <- function (text, aFraction = 0.1) {
 #' @param title Plot title (character)
 #' @param m most frequent ngrams (integer)
 #' @return (-) Only side-effect is produces (a plot)
+#' @importFrom graphics barplot
 #' @export
 plot_ngrams <- function(ngr,
                         title = "",

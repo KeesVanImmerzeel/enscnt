@@ -25,10 +25,6 @@ ensentences
 A dataset containing sample sentences from twitter, blogs and newspapers.
 }
 \examples{
-To show the first sentence of the dataset:
-
-\dontrun{
 ensentences[1]
-}
 }
 \keyword{datasets}

@@ -12,9 +12,5 @@
 #' (as included in this package) and made available as a dataset 'ensentences'.
 #'
 #' @examples
-#' To show the first sentence of the dataset:
-#'
-#' \dontrun{
 #' ensentences[1]
-#' }
 "ensentences"
