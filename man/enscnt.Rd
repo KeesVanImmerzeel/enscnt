@@ -3,13 +3,19 @@
 \docType{package}
 \name{enscnt}
 \alias{enscnt}
-\title{enscnt: package with dataset of English sentences.}
+\title{enscnt: package with datasets of English sentences.}
 \description{
 Sentences are from twitter, blogs and newspapers.
 }
-\section{dataset}{
+\section{datasets}{
 
 \code{\link{ensentences}}
+
+\code{\link{en_bl_sentences}}
+
+\code{\link{en_ne_sentences}}
+
+\code{\link{en_tw_sentences}}
 }
 
 \section{functions}{
