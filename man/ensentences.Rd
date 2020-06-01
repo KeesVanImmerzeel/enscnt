@@ -3,26 +3,29 @@
 \docType{data}
 \name{ensentences}
 \alias{ensentences}
-\title{Sample of English sentences.}
+\title{Sample of English sentences from twitter, blogs and newspapers.}
 \format{
-An object of class \code{character} of length 824119.
+An object of class \code{character} of length 823650.
 }
 \source{
 \url{https://d396qusza40orc.cloudfront.net/dsscapstone/dataset/Coursera-SwiftKey.zip}
 
-For constructing this package, 25\% of this data is selected with the script
-'data-raw/sampling.r' and written in a file 'data-raw/en.txt'.
+For the constructing of this package, a fraction of the source data is randomly selected
+with the script:
 
-(The original files would be too large to be uploaded on GitHub).
+'data-raw/sampling.r'
 
-The lines in 'data-raw/en.txt' are cleaned with the function clean_text()
-(as included in this package) and made available as a dataset 'ensentences'.
+as the original files would be too large to be uploaded on GitHub.
+The lines in the resulting file in data-raw/en.txt' are cleaned with the function clean_text()
+(as included in this package) and made available as the dataset "ensentences".
+
+To show the first sentence of the dataset:
 }
 \usage{
 ensentences
 }
 \description{
-A dataset containing sample sentences from twitter, blogs and newspapers.
+Sample of English sentences from twitter, blogs and newspapers.
 }
 \examples{
 ensentences[1]
