@@ -4,13 +4,13 @@
 \alias{ngrams_table}
 \title{Create a dataframe of n-grams, and their frequency and proportion.}
 \usage{
-ngrams_table(text, n = 2)
+ngrams_table(text, ng = 2)
 }
 \arguments{
 \item{text}{Previously cleaned text (with \code{enscnt::clean_text()})
 (character vector)}
 
-\item{n}{value of 'n' in n-gram (integer)}
+\item{ng}{value of 'n' in n-gram (integer)}
 }
 \value{
 dataframe of n-grams (dataframe)
@@ -18,4 +18,7 @@ dataframe of n-grams (dataframe)
 \description{
 Generate a dataframe of n-grams, and their frequency and proportion
 Apply on 'cleaned' text only.
+}
+\examples{
+ngrams_table(en_ne_sentences[1:10])
 }

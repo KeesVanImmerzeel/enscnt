@@ -41,19 +41,45 @@ word_count <- function(text) {
 #' Apply on 'cleaned' text only.
 #'
 #' @inheritParams word_count
-#' @param n value of 'n' in n-gram (integer)
+#' @param ng value of 'n' in n-gram (integer)
 #' @return dataframe of n-grams (dataframe)
 #' @importFrom ngram ngram
 #' @importFrom ngram get.phrasetable
+#' @examples
+#' ngrams_table(en_ne_sentences[1:10])
 #' @export
-ngrams_table <- function(text, n = 2) {
-      i <- (word_count(text) >= n)
+ngrams_table <- function(text, ng = 2) {
+      i <- (word_count(text) >= ng)
       text <- text[i == TRUE]
-      ngram_table <- text %>% ngram::ngram(n) %>%
+      ngram_table <- text %>% ngram::ngram(ng) %>%
          ngram::get.phrasetable()
       ngram_table$ngrams <- trimws(ngram_table$ngrams)
+      ngram_table$ng <- ng
       return(ngram_table)
 }
+
+#' Create a list of all n-gram tables 1..ng (wih their frequency and proportion).
+#'
+#' @inheritParams ngrams_table
+#' @param x list of all n-gram tables (data frames)
+#' @examples
+#' ngrams_tables(en_ne_sentences[1:10])
+#' @export
+ngrams_tables <-
+   function(text,
+            ng = 3,
+            x = NULL) {
+      if (ng == 0) {
+         return(x)
+      }
+      else {
+         x <-
+            do.call("rbind",
+                    list(ngrams_table(text, ng),
+                         ngrams_tables(text, ng - 1, x)))
+         return(x)
+      }
+   }
 
 #' Sample "aFraction" of cleaned text.
 #'
@@ -81,19 +107,22 @@ sampleNlines <- function (text, aFraction = 0.1) {
 #' @param m most frequent ngrams (integer)
 #' @return (-) Only side-effect is produces (a plot)
 #' @importFrom graphics barplot
+#' @examples
+#' plot_ngrams(ngrams_table(en_ne_sentences[1:10]))
 #' @export
 plot_ngrams <- function(ngr,
                         title = "",
-                        n = 2,
+                        ng = 2,
                         m = 5) {
       if (title == "") {
-            title <- paste0("Most Frequent ", toString(n), "-gram")
+            title <- paste0("Most Frequent ", toString(ng), "-gram")
       }
-
-      barplot(
+      graphics::barplot(
             ngr$freq[1:m],
             names.arg = ngr$ngrams[1:m],
             main = title,
             ylab = "Frequency"
       )
 }
+
+

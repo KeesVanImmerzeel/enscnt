@@ -4,14 +4,14 @@
 \alias{plot_ngrams}
 \title{Plot n-gram (output from \code{ngram::ngram})}
 \usage{
-plot_ngrams(ngr, title = "", n = 2, m = 5)
+plot_ngrams(ngr, title = "", ng = 2, m = 5)
 }
 \arguments{
 \item{ngr}{ngram (output from \code{ngram::ngram})}
 
 \item{title}{Plot title (character)}
 
-\item{n}{value of 'n' in n-gram (integer)}
+\item{ng}{value of 'n' in n-gram (integer)}
 
 \item{m}{most frequent ngrams (integer)}
 }
@@ -20,4 +20,7 @@ plot_ngrams(ngr, title = "", n = 2, m = 5)
 }
 \description{
 Plot n-gram (output from \code{ngram::ngram})
+}
+\examples{
+plot_ngrams(ngrams_table(en_ne_sentences[1:10]))
 }

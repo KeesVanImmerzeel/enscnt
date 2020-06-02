@@ -2,6 +2,7 @@
 
 export(clean_text)
 export(ngrams_table)
+export(ngrams_tables)
 export(plot_ngrams)
 export(sampleNlines)
 export(word_count)
