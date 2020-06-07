@@ -63,7 +63,7 @@ ngrams_table <- function(text, ng = 2) {
 #' @inheritParams ngrams_table
 #' @param x list of all n-gram tables (data frames)
 #' @examples
-#' ngrams_tables(en_ne_sentences[1:10])
+#' nGF <- ngrams_tables(en_bl_sentences[1:100], ng=4)
 #' @export
 ngrams_tables <-
    function(text,
@@ -124,5 +124,82 @@ plot_ngrams <- function(ngr,
             ylab = "Frequency"
       )
 }
+
+RemoveFirstWord <- function(txt) {
+   txt %<>% trimws(.)
+   if (stringi::stri_count(txt, regex = "\\p{L}+") > 1) {
+      #Only one word
+      i <- unlist(gregexpr(pattern = ' ', txt))[1]
+      substr(txt, i + 1, nchar(txt))
+   } else
+      return("")
+}
+
+#' Estimate the probabilities of observed and unobserved n-grams that start with prefix "pfx".
+#'
+#' It accomplishes this estimation by backing off through progressively shorter history models
+#' under certain conditions. Reference: \href{https://en.wikipedia.org/wiki/Katz%27s_back-off_model}{Katz's back-off model}.
+#'
+#'By doing so, the model with the most reliable information about a given history is used
+#'to provide the better results in predicting the next word.
+#' @param pfx prefix ('cleaned' text only, character)
+#' @param nGF List of all n-gram tables 1..ng wih their frequency and proportion
+#'            as created by the function ngrams_tables (list)
+#' @param discnt Discount factor 0 < discnt < 1 (numeric)
+#' @return data.frame of 6 variables:
+#'   ngrams: unique n-grams (character)
+#'   freq: frequency of n-grams (integer)
+#'   prop: proportion of n-grams (numeric)
+#'   ng: value of 'n' in n-gram (integer)
+#'   prob: probability of n-gram (numeric)
+#' @importFrom magrittr %<>%
+#' @importFrom dplyr mutate
+#' @importFrom dplyr filter
+#' @importFrom dplyr anti_join
+#' @examples
+#' nGF <- ngrams_tables(en_bl_sentences[1:100], ng=4)
+#' nGF_prob <- set_prob_of_ngrams(pfx="love spending", nGF, discnt=0.75)
+#' @export
+set_prob_of_ngrams <- function(pfx, nGF, discnt = 0.5) {
+   pMass         <- 1
+   # Probability mass to assign to ngrams (n=1..n)
+   pMassAssigned <- 0
+   # Total assigned probability mass
+   pMassN <- numeric() # Total probability mass assigned to ngrams of order n
+
+   ng <- word_count(pfx) + 1
+   n <- ng
+   nGF$prob <- 0
+   nGF %<>% dplyr::mutate(id = row_number()) # Add row numbers
+   while (n >= 1) { # backing off through progressively shorter history models
+      sub_df <- nGF %>% dplyr::filter(ng == n)
+      if (n > 1) {
+         j <- grep(paste0("^", pfx, " "), sub_df$ngrams) # matching indices
+         sub_df <- (sub_df[j,]) # sub_df with matched text only
+      }
+      sumfreq <- sum(sub_df$freq) #sum of frequencies
+      if (sumfreq > 0) { #one or more matches
+         if (n == 1) {
+            discnt <- 0
+         }
+         nGF %<>% dplyr::anti_join(sub_df,by="id") # Remove records that will be updated
+         sub_df %<>% dplyr::mutate(prob = pMass * (freq - discnt) / sumfreq) # calculate probability
+
+         pMassN <- append(pMassN,sum(sub_df$prob[]))
+
+         pMassAssigned %<>% sum(., tail(pMassN,1))
+         pMass <- 1 - pMassAssigned
+         nGF <-
+            do.call(rbind, list(nGF, sub_df)) ## Add updated records to nGF
+      }
+      pfx <- RemoveFirstWord(pfx)
+      n <- n - 1
+   }
+   nGF %<>% dplyr::arrange(., desc(prob))
+   nGF$id <- NULL
+
+   return(nGF)
+}
+
 
 

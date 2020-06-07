@@ -20,6 +20,7 @@ Imports:
     stringi,
     stats,
     ngram,
-    graphics
+    graphics,
+    dplyr
 Depends: 
     R (>= 2.10)
